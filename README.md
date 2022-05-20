@@ -2,7 +2,7 @@ The project has a task to call /actuator/refresh to refresh the db pwd. In the P
 Sometimes when task to call /actuator/refresh endPoint automatically, we get some db Connection exceptions.
 The old connection will be closed by refresh task, and before db re-connect we will get the exception.
 
-Shouldn't database keep the connection , not be forced to close, right?
+I think the connection should be keep , not be forced to close, right?
 
 If the connection is forced to close, there is a problem with the business query.
 
