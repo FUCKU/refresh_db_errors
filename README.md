@@ -1,6 +1,11 @@
 The project has a task to call /actuator/refresh to refresh the db pwd. In the Project also has quartz task to run other biz querys.
 Sometimes when task to call /actuator/refresh endPoint automatically, we get some db Connection exceptions.
 The old connection will be closed by refresh task, and before db re-connect we will get the exception.
+Shouldn't database keep the connection , not be forced to close, right?
+If the connection is forced to close, there is a problem with the business query.
+Is this a bug?  Or is the way of use to be optimized?
+Please see the repeatable validation Demo.
+https://github.com/FUCKU/refresh_db_errors.git
 logs like as follows(logs from demo):
 ```text
 Hibernate: select verificati0_.id as id1_0_ from t_verification verificati0_
@@ -53,10 +58,3 @@ at org.springframework.transaction.support.AbstractPlatformTransactionManager.ge
 2022-05-20 21:56:55.237 INFO 22928 --- [nio-8080-exec-5] com.zaxxer.hikari.HikariDataSource : HikariPool-2 - Start completed.
 
 ```
-
-Steps:
-1. create DB，db name is verification
-2. execute t_verification.sql
-3. start project
-4. call http://localhost:8080/test/db2
-5. call http://localhost:8080/actuator/refresh then will get connection exception
